@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> BUI 管理系统</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="bui/css/dpl-min.css" rel="stylesheet" type="text/css" />
+   <link href="bui/css/bui-min.css" rel="stylesheet" type="text/css" />
+   <link href="bui/css/page-min.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+  <div class="container">
+      <div class="detail-page">
+            <h2>系统信息</h2>
+			<div class="detail-section"> 
+				<h3>内存信息</h3>
+				<div class="row detail-row">
+					<div class="span8">
+						<label>已用内存：</label><span style="color:#0078ff;" class="detail-text">${(usedMemory/1024/1024)?string("0.##")}MB</span>
+					</div>
+					<div class="span8">
+						<label>剩余内存：</label><span style="color:#ff8400;" class="detail-text">${(useableMemory/1024/1024)?string("0.##")}MB</span>
+					</div>
+					<div class="span8">
+						<label>最大内存：</label><span style="color:#00ac41;" class="detail-text">${(maxMemory/1024/1024)?string("0.##")}MB</span>
+					</div>
+				</div>
+			</div>
+			<div class="detail-section"> 
+				<h3>系统属性</h3>
+				<div class="row detail-row">
+					<div class="span12">
+						<label>操作系统版本：</label><span style="color:#0078ff;" class="detail-text">${props['os.name']!} ${props['os.version']!}</span>
+					</div>
+					<div class="span12">
+						<label>操作系统类型：</label><span style="color:#0078ff;" class="detail-text">${props['os.arch']!} ${props['sun.arch.data.model']!}位</span>
+					</div>
+					
+				</div>
+				
+				<div class="row detail-row">
+					<div class="span12">
+						<label>JAVA虚拟机：</label><span style="color:#0078ff;" class="detail-text">${props['java.vm.name']!} ${props['java.vm.version']!}</span>
+					</div>
+					<div class="span12">
+						<label>JAVA运行环境：</label><span style="color:#0078ff;" class="detail-text">${props['java.runtime.name']!} ${props['java.runtime.version']!}</span>
+					</div>
+				</div>
+				<div class="row detail-row">
+					<div class="span24">
+						<label>用户、目录、临时目录：</label><span style="color:#0078ff;" class="detail-text">${props['user.name']!}, ${props['user.dir']!}, ${props['java.io.tmpdir']!}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+ </body>
+</html>

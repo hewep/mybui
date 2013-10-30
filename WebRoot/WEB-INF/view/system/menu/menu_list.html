@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> BUI 管理系统</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="bui/css/dpl-min.css" rel="stylesheet" type="text/css" />
+   <link href="bui/css/bui-min.css" rel="stylesheet" type="text/css" />
+   <link href="bui/css/page.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+ 	<div class="container">
+ 	 	
+		<div class="row">
+			<div class="span48">
+				<div id="grid"></div>
+			</div>
+		</div>
+		<div id="content" class="hide">
+	      <form id="J_Form" class="form-horizontal">
+	      	<input name="id" type="hidden"/>
+	        <div class="row">
+	          <div class="control-group span8">
+	            <label class="control-label"><s>*</s>编号：</label>
+	            <div class="controls">
+	              <input name="mid" type="text">
+	            </div>
+	          </div>
+	          <div class="control-group span8">
+	            <label class="control-label">父类编号：</label>
+	            <div class="controls">
+	              <input name="parent_mid" type="text">
+	            </div>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="control-group span8">
+	            <label class="control-label">菜单名称：</label>
+	            <div class="controls control-row4">
+	              <input name="menu_name" type="text" >
+	            </div>
+	          </div>
+	          <div class="control-group span8">
+	            <label class="control-label">URL：</label>
+	            <div class="controls control-row4">
+	              <input name="href" type="text" >
+	            </div>
+	          </div>
+	        </div>
+	        
+	        <div class="row">
+	          <div class="control-group span8">
+	            <label class="control-label">排序码：</label>
+	            <div class="controls control-row4">
+	              <input name="menu_sort" type="text" >
+	            </div>
+	          </div>
+	          
+	          <div class="control-group span8">
+	            <label class="control-label">是否可见：</label>
+	            <div class="controls control-row4">
+	              <input name="visible" type="text">
+	            </div>
+	          </div>
+	        </div>
+	        
+	        <div style="text-align:center"><span id="tip" style="color:red"></span></div>
+	      </form>
+	 	</div>
+		<!--t为时间戳-->
+		<script type="text/javascript" src="bui/js/jquery-1.8.1.min.js"></script>
+  		<script type="text/javascript" src="bui/js/bui.js"></script>
+  		<script type="text/javascript" src="bui/js/config.js"></script>
+  		
+		<!-- script start--> 
+		<script type="text/javascript">
+			var columns = ${columns};
+			// 加载数据并初始化
+			var Grid = BUI.Grid,
+				Data = BUI.Data,
+				Store = Data.Store;
+			var store = new Store({
+		            url : 'menu/list',
+					proxy : {//设置请求相关的参数
+						method : 'post',
+						dataType : 'json', //返回数据的类型
+						limitParam : 'pageSize', //一页多少条记录
+						pageIndexParam : 'pageNum' //页码
+					},
+					autoLoad:true,
+					pageSize:10, // 配置分页数目
+					totalProperty:'total'
+				}),
+				editing = new Grid.Plugins.DialogEditing({
+			        contentId : 'content',
+			        triggerCls : 'btn-edit',
+			        editor:{
+				        success:function(){
+				        
+				        	var param = this.get('form').serializeToObject();
+				        	var dialog = this;
+				        	$.post("menu/addOrUpdateMenu", param,function(result){
+				        		if(result.rtState){
+						        	dialog.close();
+						        	store.load();
+						        	BUI.Message.Alert(result.rtMsg,'success');
+				        		}else{
+				        			$("#tip").text(result.rtMsg);
+				        		}
+				        	},'json');
+				        }
+			        }
+			    }),
+				
+			    grid = new Grid.Grid({
+		            render:'#grid',
+		            width:'100%',
+		            columns : columns,
+		            plugins : [Grid.Plugins.CheckSelection,editing],
+		            loadMask: true,
+		            store: store,
+				    // 底部工具栏
+			        tbar:{
+			            items : [{
+				            btnCls : 'button button-small',
+				            text : '<i class="icon-plus"></i>添加',
+				            listeners : {
+				              'click' : addFunction
+				            }
+				        },{
+				            btnCls : 'button button-small',
+				            text : '<i class="icon-remove"></i>删除',
+				            listeners : {
+				              'click' : delFunction
+				            }
+				        }]
+					},
+					bbar:{
+						// pagingBar:表明包含分页栏
+			            pagingBar:true
+					}
+				});
+				grid.render();
+				
+				function addFunction(record){
+			      editing.add({}); //添加记录后，直接编辑
+			    }
+			 	
+			    function delFunction(){
+			      var selections = grid.getSelection();
+			      if(selections.length <= 0){
+			      	  BUI.Message.Alert('请选择要删除的记录!','info');
+			      	
+			      }else{
+			          BUI.Message.Confirm('确定删除所选记录!',function(){
+					      var ids = '';
+					      for(var i=0; i<selections.length; i++){
+					      	if(ids != ''){
+					      		ids += ',';
+					      	}
+					      	ids += selections[i].id;
+					      }
+					      $.post('menu/delMenus',{ids:ids},function(result){
+						        if(result.rtState){
+						        	store.load();
+						        	BUI.Message.Alert('删除成功','success');
+				        		}else{
+				        			BUI.Message.Alert('删除失败','error');
+				        		}
+					      });
+			          },'question');
+			      }
+			    }
+				
+		</script>
+		<!-- script end -->
+		
+	</div>
+	
+ </body>
+</html>

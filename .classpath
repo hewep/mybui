@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/JFinal-bin-with-src-1.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-lang-2.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ezmorph-1.0.3.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/freemarker-2.3.19.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jetty-server-8.1.8.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json-lib-2.2.2-jdk15.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mysql-connector-java-5.1.20-bin.jar"/>
+	<classpathentry kind="lib" path="lib/cache/ehcache-core-2.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/cache/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/cache/slf4j-log4j12-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ehcache-web-2.0.4.jar" sourcepath="E:/我的资料/工具/jar_src/ehcache-web-2.0.4-distribution/ehcache-web-2.0.4/ehcache-web-2.0.4-sources.jar"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
+</classpath>
